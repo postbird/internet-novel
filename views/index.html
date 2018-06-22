@@ -1,0 +1,39 @@
+{%extends './base.html'%}
+{%block title%}首页{%endblock%}
+{%block stylesheet%}
+<style>
+  
+</style>
+{%endblock%}
+
+{%block main%}
+<header class="bar bar-nav">
+    <h1 class="title">小说阅读</h1>
+</header>
+<div class="content">
+    <div class="">
+        <!-- 搜索栏 -->
+        <form action="/search">
+          <div class="list-block">
+              <ul>
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title label">小说名</div>
+                            <div class="item-input">
+                                <input type="search" name="keyword" placeholder="宁可少打也不要多打...">
+                            </div>
+                        </div>
+                      </div>
+                </li>
+              </ul>
+          </div>
+          <div class="content-block">
+            <button  type="submit" class="button button-fill button-big button-block">搜索</button>
+          </div>
+        </form>
+    </div>
+</div>
+{%endblock%}
+
+{%block script%} {%endblock%}

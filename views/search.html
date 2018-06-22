@@ -1,0 +1,50 @@
+{%extends './base.html'%}
+{%block title%}搜索结果{%endblock%} 
+{%block stylesheet%}
+<style>
+</style>
+{%endblock%}
+ {%block main%}
+<header class="bar bar-nav">
+    <a class="icon icon-home pull-right" href="/"></a>
+  <h1 class="title">小说搜索结果</h1>
+</header>
+<form action="/search">
+  <div class="bar bar-header-secondary">
+    <div class="searchbar">
+      <a class="searchbar-cancel">取消</a>
+      <div class="search-input">
+        <label class="icon icon-search" for="search"></label>
+        <input type="search" id='search' name="keyword" placeholder='小说名(宁可少打字不要多打字)...' />
+      </div>
+    </div>
+  </div>
+</form>
+<div class="content" style="top:4.4rem">
+      <div class="content-block-title">搜索结果：</div>
+      <div class="list-block">
+        <ul>
+            {% for item in list %}
+            <li class="item-content  item-link">
+              <div class="item-inner">
+                  <div class="item-title">
+                      {{ item.author }}
+                  </div>
+                <div class="item-after">
+                  <a class="close-popup" href="/book/{{ item.id }}"  data-no-cache="true">{{ item.title }}</a>
+                </div>
+              </div>
+            </li>
+            {% else %}
+            <li class="item-content">
+                <div class="item-inner">
+                    <div class="item-title">
+                        无
+                    </div>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+      </div>
+</div>
+{%endblock%} {%block script%} {%endblock%}

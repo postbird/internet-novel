@@ -1,0 +1,108 @@
+{%extends '../base.html'%}
+{%block title%}{{ info.title }}{%endblock%} 
+{%block stylesheet%}
+<style>
+  .infinite-scroll-preloader {
+        margin-top:-20px;
+      }
+</style>
+{%endblock%}
+ {%block main%}
+<header class="bar bar-nav">
+    <a class="icon icon-left pull-left" onclick="history.back()" ></a>
+    <a class="icon icon-home pull-right" href="/"></a>
+  <h1 class="title">{{ info.title }}</h1>
+</header>
+<div class="" style="padding-top:2.2rem;width:100%;">
+    <div class="list-block media-list">
+        <ul>
+          <li>
+            <a href="/book/read/{{info.id}}/{{info.startRead}}" class="item-link item-content"  data-no-cache="true">
+              <div class="item-media"><img src="{{info.img}}" alt = "{{info.title}}"style='width: 4rem;'></div>
+              <div class="item-inner">
+                <div class="item-title-row">
+                  <div class="item-title">{{ info.title }}</div>
+                  <div class="item-after"></div>
+                </div>
+                <div class="item-subtitle">
+                  &nbsp;
+                </div>
+                <div class="item-text">{{ info.author }}</div>
+              </div>
+            </a>
+          </li>
+        </ul>
+    </div>
+    <div class="content-block-title">目录</div>
+</div>
+<div class="content infinite-scroll infinite-scroll-bottom" data-distance="50" style="top:10rem">
+    <div class="list-block">
+        <ul class="list-container" id="menuListContainer">
+        </ul>
+    </div>
+    <!-- 加载提示符 -->
+    <div class="infinite-scroll-preloader">
+        <div class="preloader"></div>
+    </div>
+</div>
+{%endblock%}
+ {%block script%}
+ <script>
+   $.init();
+   $.ajax({
+    url :"/book/menu/{{info.id}}",
+    dataType :"json",
+    success:function(data,status,xhr){
+      
+      var list = data.list;
+      var loading = false;
+      // 最多可加载的条目
+      var maxItems = list.length;
+      // 每次加载添加多少条目
+      var itemsPerLoad = 40;
+      function addItems(number, lastIndex) {
+        // 生成新条目的HTML
+        var html = '';
+        for (var i = lastIndex ; i <= lastIndex + number; i++) {
+            html += '<a href="/book/read/'+data.id+'/'+list[i].read+'"  data-no-cache="true"><li class="item-content item-link"><div class="item-inner"><div class="item-title">'  + list[i].name + '</div></div></li></a>';
+        }
+        // 添加新条目
+        $('#menuListContainer').append(html);
+        loading = false;
+      }
+      //预先加载20条
+      addItems(itemsPerLoad, 0);
+      // 上次加载的序号
+      var lastIndex = itemsPerLoad;
+      // 注册'infinite'事件处理函数
+      $(document).on('infinite', '.infinite-scroll-bottom',function() {
+          // 如果正在加载，则退出
+          if (loading) return;
+          // 设置flag
+          loading = true;
+          // 模拟1s的加载过程
+          setTimeout(function() {
+              // 重置加载flag
+              loading = false;
+
+              if (lastIndex >= maxItems) {
+                  // 加载完毕，则注销无限加载事件，以防不必要的加载
+                  $.detachInfiniteScroll($('.infinite-scroll'));
+                  // 删除加载提示符
+                  $('.infinite-scroll-preloader').remove();
+                  return;
+              }
+
+              // 添加新条目
+              addItems(itemsPerLoad, lastIndex);
+              // 更新最后加载的序号
+              lastIndex = $('.list-container li').length;
+              //容器发生改变,如果是js滚动，需要刷新滚动
+              $.refreshScroller();
+          }, 0);
+      });
+    }
+   });
+   
+ </script>
+ {%endblock%}

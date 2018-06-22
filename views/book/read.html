@@ -1,0 +1,39 @@
+{%extends '../base.html'%}
+{%block title%} {{book.title}} - {{book.info.title}}{%endblock%} 
+{%block stylesheet%}
+<style>
+  .book-content{
+    text-align: justify;
+  }
+  .book-content:after{display: inline-block ; content: ''; padding-left: 100%; }  
+</style>
+{%endblock%}
+ {%block main%}
+<header class="bar bar-nav">
+    <a class="icon icon-left pull-left" onclick="history.back()"  data-no-cache="true"></a>
+    <a class="icon icon-home pull-right" href="/"  data-no-cache="true"></a>
+  <h1 class="title">{{book.info.title}}</h1>
+</header>
+<div class="content content-padded">
+    <div class="text-center">
+      <h4>{{book.title}}</h4>
+    </div>
+    <div class="book-content">
+      {{book.content  | safe }}
+    </div>
+    <hr style="margin:20px 0;">
+    <div style="margin-bottom:30px;">
+        <div class="row">
+            <div class="col-33">
+              <a href="/book/read/{{book.id}}/{{book.prev}}" class="button" data-no-cache="true">上一章</a>
+            </div>
+            <div class="col-33">
+              <a href="/book/{{book.id}}"  class="button close-popup">返回目录</a>
+            </div>
+            <div class="col-33">
+                <a href="/book/read/{{book.id}}/{{book.next}}"  class="button"  data-no-cache="true">下一章</a>
+            </div>
+          </div>
+    </div>
+</div>
+{%endblock%} {%block script%} {%endblock%}
