@@ -69,7 +69,7 @@ async function getBookRead(id,read,ctx){
   book.id = id;
   book.read = read;
   book.content = $("#content").html();
-  book.info = ctx.session.bookInfo;
+  book.info = ctx.session.bookInfo | await getBookInfo(id);
   book.prev = $("#content .readbutton .readup a").attr("href");
   book.prev = getReadIdByLink(book.prev);
   book.next = $("#content .readbutton .readdown a").attr("href");
