@@ -9,6 +9,16 @@
 
 自己写了个爬虫，对某个免费小说网站进行内容获取，并且使用 koa2 开发了网站服务。
 
+## 开发依赖
+
+基于 `cheerio` 和 `axios` 进行爬虫
+
+基于 koa2 开发网站服务，使用 `koa-generator-postbird` 脚手架进行开发。
+
+脚手架地址：
+
+- [https://github.com/postbird/koa-generator-postbird](https://github.com/postbird/koa-generator-postbird)
+
 
 ## 在线体验
 
