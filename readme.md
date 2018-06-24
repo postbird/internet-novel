@@ -15,7 +15,7 @@
 
 基于 koa2 开发网站服务，使用 `koa-generator-postbird` 脚手架进行开发。
 
-脚手架地址：
+脚手架地址：  
 
 - [https://github.com/postbird/koa-generator-postbird](https://github.com/postbird/koa-generator-postbird)
 
